@@ -9,7 +9,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Board, BoardStatus } from './board.model';
+import { BoardStatus } from './board-status.enum';
+import { Board } from './board.entity';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
@@ -25,35 +26,35 @@ export class BoardsController {
   // 해당 파라미터는 암묵적으로 class의 property로 선언이 된다.
   constructor(private boardsService: BoardsService) {}
 
-  @Get('/')
-  getAllBoard(): Board[] {
-    return this.boardsService.getAllBoards();
-  }
+  // @Get('/')
+  // getAllBoard(): Board[] {
+  //   return this.boardsService.getAllBoards();
+  // }
 
-  // parameter가 하나인 경우 @Param('원하는파라미터')로 받으면 되고, 두 개 이상인 경우에는
-  // @Param() params: string[]  이런 식으로 받으면 된다.
+  // // parameter가 하나인 경우 @Param('원하는파라미터')로 받으면 되고, 두 개 이상인 경우에는
+  // // @Param() params: string[]  이런 식으로 받으면 된다.
   @Get('/:id')
-  getBoardById(@Param('id') id: string) {
+  getBoardById(@Param('id') id: number): Promise<Board> {
     return this.boardsService.getBoardById(id);
   }
 
-  // handler레벨의 pipe (nest의 내장 pipe를 사용)
-  @Post('/')
-  @UsePipes(ValidationPipe)
-  createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-    return this.boardsService.createBoard(createBoardDto);
-  }
+  // // handler레벨의 pipe (nest의 내장 pipe를 사용)
+  // @Post('/')
+  // @UsePipes(ValidationPipe)
+  // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
+  //   return this.boardsService.createBoard(createBoardDto);
+  // }
 
-  @Delete('/:id')
-  deleteBoard(@Param('id') id: string): void {
-    this.boardsService.deleteBoard(id);
-  }
+  // @Delete('/:id')
+  // deleteBoard(@Param('id') id: string): void {
+  //   this.boardsService.deleteBoard(id);
+  // }
 
-  @Patch('/:id/status')
-  updateBoardStatus(
-    @Param('id') id: string,
-    @Body('status', BoardStatusValidationPipe) status: BoardStatus, // 파라미터 레벨의 파이프 (커스텀 파이프)
-  ) {
-    return this.boardsService.updateBoardStatus(id, status);
-  }
+  // @Patch('/:id/status')
+  // updateBoardStatus(
+  //   @Param('id') id: string,
+  //   @Body('status', BoardStatusValidationPipe) status: BoardStatus, // 파라미터 레벨의 파이프 (커스텀 파이프)
+  // ) {
+  //   return this.boardsService.updateBoardStatus(id, status);
+  // }
 }

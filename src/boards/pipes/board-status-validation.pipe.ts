@@ -3,7 +3,7 @@ import {
   BadRequestException,
   PipeTransform,
 } from '@nestjs/common';
-import { BoardStatus } from '../board.model';
+import { BoardStatus } from '../board-status.enum';
 
 export class BoardStatusValidationPipe implements PipeTransform {
   // 읽기 전용으로 만드는데 사용. 클래스 외부에서 엑세스는 가능하나, 해당 값을 변경할 수는 없다.

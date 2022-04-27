@@ -38,12 +38,12 @@ export class BoardsController {
     return this.boardsService.getBoardById(id);
   }
 
-  // // handler레벨의 pipe (nest의 내장 pipe를 사용)
-  // @Post('/')
-  // @UsePipes(ValidationPipe)
-  // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-  //   return this.boardsService.createBoard(createBoardDto);
-  // }
+  // handler레벨의 pipe (nest의 내장 pipe를 사용)
+  @Post()
+  @UsePipes(ValidationPipe)
+  createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardsService.createBoard(createBoardDto);
+  }
 
   // @Delete('/:id')
   // deleteBoard(@Param('id') id: string): void {

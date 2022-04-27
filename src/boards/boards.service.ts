@@ -16,18 +16,13 @@ export class BoardsService {
   // getAllBoards(): Board[] {
   //   return this.boards;
   // }
-  // createBoard(createBoardDto: CreateBoardDto) {
-  //   const { title, content } = createBoardDto;
-  //   const board: Board = {
-  //     id: uuid(),
-  //     title,
-  //     content,
-  //     status: BoardStatus.PUBLIC,
-  //   };
-  //   // db가 없으니 임시로 배열에 넣어준다.
-  //   this.boards.push(board);
-  //   return board;
-  // }
+
+  // 생성하기 - repository 패턴 적용
+  createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto);
+  }
+
+  // 디테일 불러오기
   async getBoardById(id: number): Promise<Board> {
     const foundOne = await this.boardRepository.findOne(id);
     if (!foundOne) {

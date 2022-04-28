@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
@@ -23,20 +23,17 @@ export class BoardsService {
   }
 
   // 디테일 불러오기
-  async getBoardById(id: number): Promise<Board> {
-    const foundOne = await this.boardRepository.findOne(id);
-    if (!foundOne) {
-      throw new NotFoundException(`Can not found board with id: ${id}`);
-    }
-    return foundOne;
+  getBoardById(id: number): Promise<Board> {
+    return this.boardRepository.getBoardById(id);
   }
   // updateBoardStatus(id: string, status: BoardStatus): Board {
   //   const board = this.getBoardById(id);
   //   board.status = status;
   //   return board;
   // }
-  // deleteBoard(id: string): void {
-  //   const found = this.getBoardById(id);
-  //   this.boards = this.boards.filter((bd) => bd.id !== found.id);
-  // }
+
+  // 게시글 삭제
+  deleteBoard(id: number): Promise<void> {
+    return this.boardRepository.deleteBoard(id);
+  }
 }

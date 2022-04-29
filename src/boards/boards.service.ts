@@ -26,11 +26,11 @@ export class BoardsService {
   getBoardById(id: number): Promise<Board> {
     return this.boardRepository.getBoardById(id);
   }
-  // updateBoardStatus(id: string, status: BoardStatus): Board {
-  //   const board = this.getBoardById(id);
-  //   board.status = status;
-  //   return board;
-  // }
+
+  // status 업데이트
+  updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    return this.boardRepository.updateBoardStatus(id, status);
+  }
 
   // 게시글 삭제
   deleteBoard(id: number): Promise<void> {

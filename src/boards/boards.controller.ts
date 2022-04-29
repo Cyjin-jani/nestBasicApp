@@ -51,11 +51,11 @@ export class BoardsController {
     return this.boardsService.deleteBoard(id);
   }
 
-  // @Patch('/:id/status')
-  // updateBoardStatus(
-  //   @Param('id') id: string,
-  //   @Body('status', BoardStatusValidationPipe) status: BoardStatus, // 파라미터 레벨의 파이프 (커스텀 파이프)
-  // ) {
-  //   return this.boardsService.updateBoardStatus(id, status);
-  // }
+  @Patch('/:id/status')
+  updateBoardStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', BoardStatusValidationPipe) status: BoardStatus, // 파라미터 레벨의 파이프 (커스텀 파이프)
+  ): Promise<Board> {
+    return this.boardsService.updateBoardStatus(id, status);
+  }
 }

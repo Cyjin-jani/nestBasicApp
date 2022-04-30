@@ -27,10 +27,10 @@ export class BoardsController {
   // 해당 파라미터는 암묵적으로 class의 property로 선언이 된다.
   constructor(private boardsService: BoardsService) {}
 
-  // @Get('/')
-  // getAllBoard(): Board[] {
-  //   return this.boardsService.getAllBoards();
-  // }
+  @Get('/')
+  getAllBoard(): Promise<Board[]> {
+    return this.boardsService.getAllBoards();
+  }
 
   // // parameter가 하나인 경우 @Param('원하는파라미터')로 받으면 되고, 두 개 이상인 경우에는
   // // @Param() params: string[]  이런 식으로 받으면 된다.

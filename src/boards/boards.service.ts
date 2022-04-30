@@ -13,9 +13,9 @@ export class BoardsService {
     private boardRepository: BoardRepository,
   ) {}
 
-  // getAllBoards(): Board[] {
-  //   return this.boards;
-  // }
+  getAllBoards(): Promise<Board[]> {
+    return this.boardRepository.getAllBoards();
+  }
 
   // 생성하기 - repository 패턴 적용
   createBoard(createBoardDto: CreateBoardDto): Promise<Board> {

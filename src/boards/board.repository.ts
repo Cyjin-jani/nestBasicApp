@@ -19,6 +19,12 @@ export class BoardRepository extends Repository<Board> {
     return board;
   }
 
+  // get all
+  async getAllBoards(): Promise<Board[]> {
+    const boards: Board[] = await this.find();
+    return boards;
+  }
+
   // get detail
   async getBoardById(id: number): Promise<Board> {
     const board: Board = await this.findOne(id);

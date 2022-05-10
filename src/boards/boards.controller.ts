@@ -7,16 +7,20 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
+// 인증된 유저만 요청이 가능
 @Controller('boards')
+@UseGuards(AuthGuard())
 export class BoardsController {
   // boardsService: BoardsService; //이걸 해준 이유: 타입스크립트에서는 선언한 값만 객체의 프로퍼티로 사용가능하기 때문.
   // constructor(boardsService: BoardsService) {

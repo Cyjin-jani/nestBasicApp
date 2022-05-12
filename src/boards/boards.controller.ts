@@ -38,6 +38,12 @@ export class BoardsController {
     return this.boardsService.getAllBoards();
   }
 
+  // 현재 로그인한 유저의 글만 가져오기
+  @Get('/me')
+  getUserBoard(@GetUser() user: User): Promise<Board[]> {
+    return this.boardsService.getUserBoards(user);
+  }
+
   // // parameter가 하나인 경우 @Param('원하는파라미터')로 받으면 되고, 두 개 이상인 경우에는
   // // @Param() params: string[]  이런 식으로 받으면 된다.
   @Get('/:id')

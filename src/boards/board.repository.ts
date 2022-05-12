@@ -30,6 +30,14 @@ export class BoardRepository extends Repository<Board> {
     return boards;
   }
 
+  // get all boards by specific user who logged in.
+  async getUserBoards(user: User): Promise<Board[]> {
+    const query = this.createQueryBuilder('board');
+    query.where('board.userId = :userId', { userId: user.id });
+    const boards: Board[] = await query.getMany();
+    return boards;
+  }
+
   // get detail
   async getBoardById(id: number): Promise<Board> {
     const board: Board = await this.findOne(id);

@@ -18,6 +18,10 @@ export class BoardsService {
     return this.boardRepository.getAllBoards();
   }
 
+  getUserBoards(user: User): Promise<Board[]> {
+    return this.boardRepository.getUserBoards(user);
+  }
+
   // 생성하기 - repository 패턴 적용
   createBoard(createBoardDto: CreateBoardDto, user: User): Promise<Board> {
     return this.boardRepository.createBoard(createBoardDto, user);

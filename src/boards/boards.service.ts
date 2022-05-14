@@ -38,7 +38,7 @@ export class BoardsService {
   }
 
   // 게시글 삭제
-  deleteBoard(id: number): Promise<void> {
-    return this.boardRepository.deleteBoard(id);
+  deleteBoard(id: number, user: User): Promise<void> {
+    return this.boardRepository.deleteBoard(id, user);
   }
 }

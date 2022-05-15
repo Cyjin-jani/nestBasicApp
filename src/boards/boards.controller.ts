@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -33,6 +34,8 @@ export class BoardsController {
   // 해당 파라미터는 암묵적으로 class의 property로 선언이 된다.
   constructor(private boardsService: BoardsService) {}
 
+  private logger = new Logger('BoardsController');
+
   @Get('/')
   getAllBoard(): Promise<Board[]> {
     return this.boardsService.getAllBoards();
@@ -41,6 +44,7 @@ export class BoardsController {
   // 현재 로그인한 유저의 글만 가져오기
   @Get('/me')
   getUserBoard(@GetUser() user: User): Promise<Board[]> {
+    this.logger.verbose(`User ${user.username} trying get users all boards`);
     return this.boardsService.getUserBoards(user);
   }
 
@@ -58,6 +62,8 @@ export class BoardsController {
     @Body() createBoardDto: CreateBoardDto,
     @GetUser() user: User,
   ): Promise<Board> {
+    this.logger.verbose(`User ${user.username} creating a new board. 
+    Payload: ${JSON.stringify(createBoardDto)}`);
     return this.boardsService.createBoard(createBoardDto, user);
   }
 

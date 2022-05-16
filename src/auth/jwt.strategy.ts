@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthRepository } from './auth.repository';
 import { User } from './user.entity';
+import * as config from 'config';
 
 // nest에서는 injectable을 넣어주어야 이 서비스를 다른 곳에서도 사용이 가능하다.
 @Injectable()
@@ -13,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private authRepotistory: AuthRepository,
   ) {
     super({
-      secretOrKey: 'Secret1234',
+      secretOrKey: process.env.JWT_SECRET || config.get('jwt.secret'),
       // 헤더에 bearerToken에 jwt 토큰을 넣었기 때문.
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
